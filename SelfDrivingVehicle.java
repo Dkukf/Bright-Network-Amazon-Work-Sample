@@ -2,9 +2,9 @@
 // AmazonWorkSample class.
 public class SelfDrivingVehicle
 {
-  // Declare the variables.
-  private int xPosition = 0;
-  private int yPosition = 0;
+  // Declare the variables for the position of the vehicle.
+  private int xPosition;
+  private int yPosition;
 
   // This is the constructor method of the self-driving vehicle object.
   public SelfDrivingVehicle()
