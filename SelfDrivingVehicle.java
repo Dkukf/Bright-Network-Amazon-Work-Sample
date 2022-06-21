@@ -2,12 +2,19 @@
 // AmazonWorkSample class.
 public class SelfDrivingVehicle extends GridObject
 {
+  // Declare an instance variable to store the number of steps taken by the
+  // vehicle.
+  private int noOfSteps;
+
   // This is the constructor method of the self-driving vehicle object.
   public SelfDrivingVehicle()
   {
     // Initially, the position of the vehicle is at (0, 0).
     setX(0);
     setY(0);
+
+    // The number of steps for the vehicle is also 0.
+    noOfSteps = 0;
   } // selfDrivingVehicle method
 
   // This method is used to move the self-driving vehicle in a diagonal
@@ -64,4 +71,22 @@ public class SelfDrivingVehicle extends GridObject
         break;
     } // switch
   } // move method
+
+  // This method is used to increment the noOfSteps variable.
+  public void incrementNoOfSteps()
+  {
+    noOfSteps++;
+  } // incrementNoOfSteps method
+
+  // This method is used to decrement the noOfSteps variable.
+  public void decrementNoOfSteps()
+  {
+    noOfSteps--;
+  } // decrementNoOfSteps method
+
+  // This method is used to return the noOfSteps taken by the vehicle.
+  public int getNoOfSteps()
+  {
+    return noOfSteps;
+  } // getNoOfSteps method
 } // SelfDrivingVehicle class
