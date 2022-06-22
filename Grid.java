@@ -46,4 +46,26 @@ public class Grid
   {
     return obstacleList;
   } // getObstaclesList method
+
+  // This method is used to check if the selected grid is currently occupied.
+  public boolean isOccupied(int givenX, int givenY)
+  {
+    // If the given coordinates are (0, 0), (9, 9) or null, return false.
+    // Otherwise, return true.
+    if((givenX == 9 && givenY == 9) || (givenX == 0 && givenY == 0)
+       || gridArray[givenX][givenY] == null)
+      return false;
+    else
+      return true;
+  } // isOccupied method
+
+  // This method adds an obstacle to the grid.
+  public void addObstacle(int givenX, int givenY)
+  {
+    // Create a new Obstacle object.
+    Obstacle newObstacle = new Obstacle(givenX, givenY);
+
+    // Add the obstacle to the grid.
+    gridArray[givenX][givenY] = newObstacle;
+  } // addObstacle method
 } // Grid class
