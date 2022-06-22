@@ -11,7 +11,6 @@ public class AmazonWorkSample
   {
     // Create a grid and store it in the global variable.
     grid = new Grid();
-    grid.addObstacle(8,8);
     // Use the recursive method to find a valid path for the vehicle.
     ArrayList<String> validPath = findPath("SOUTHEAST", 0, 0);
 
