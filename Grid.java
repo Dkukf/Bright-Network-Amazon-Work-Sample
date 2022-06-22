@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 // This class is used to create Grid objects, which oversees all the Obstacle
 // objects for the AmazonWorkSample program.
@@ -42,7 +43,7 @@ public class Grid
   } // Grid method
 
   // This method is used to return the reference of the list of obstacles.
-  public ArrayList<Obstacle> getObstaclesList()
+  public ArrayList<Obstacle> getObstacleList()
   {
     return obstacleList;
   } // getObstaclesList method
@@ -60,12 +61,48 @@ public class Grid
   } // isOccupied method
 
   // This method adds an obstacle to the grid.
-  public void addObstacle(int givenX, int givenY)
+  public void addObstacle(int givenX, int givenY, int mode)
   {
     // Create a new Obstacle object.
     Obstacle newObstacle = new Obstacle(givenX, givenY);
 
     // Add the obstacle to the grid.
     gridArray[givenX][givenY] = newObstacle;
+
+    // If mode 0, add the obstacle reference to the obstacleList.
+    // Otherwise, ignore.
+    if (mode == 0)
+      obstacleList.add(newObstacle);
   } // addObstacle method
+
+  // This method is invoked if it is phase 2.
+  public void phaseTwo()
+  {
+    // Keep track of the number of obstacles that have been genereated.
+    int noOfRandomObstacles = 0;
+
+    // Create a Random object.
+    Random numberGenerator = new Random();
+
+    // Use a while loop to generate 20 obstacles at random locations.
+    while(noOfRandomObstacles < 20)
+    {
+      // Generate two new random numbers for the x and y coordinates, bounded
+      // between 0 and 9.
+      int randomX = numberGenerator.nextInt(10);
+      int randomY = numberGenerator.nextInt(10);
+
+      // Check that the location is not (0, 0) or (9, 9) or is occupied by
+      // an obstacle.
+      if(!(this.isOccupied(randomX, randomY) || (randomX == 0 && randomY == 0)
+         || (randomX == 9 && randomY == 9)))
+      {
+        // If the location is free, then add the obstacle to the grid.
+        this.addObstacle(randomX, randomY, 0);
+
+        // Afterwards, increment the noOfRandomObstacles
+        noOfRandomObstacles++;
+      } // if
+    } // for
+  } // phaseTwo method
 } // Grid class

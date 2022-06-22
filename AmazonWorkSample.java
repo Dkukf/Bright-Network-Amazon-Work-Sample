@@ -4,13 +4,24 @@ import java.util.Iterator;
 
 public class AmazonWorkSample
 {
-  // Create a global variable to store the reference to the grid.
+  // Create a global variable to store the reference to the grid and another
+  // to check if it is phase 2.
   private static Grid grid;
+  private static boolean isPhaseTwo = false;
 
   public static void main(String[] args)
   {
     // Create a grid and store it in the global variable.
     grid = new Grid();
+
+    // Check the given argument of the main method. If there is a 2, then
+    // tell the grid object that it is phase 2 instead of phase 1.
+    if(args.length != 0 && Integer.parseInt(args[0]) == 2)
+    {
+      grid.phaseTwo();
+      isPhaseTwo = true;
+    } // if
+
     // Use the recursive method to find a valid path for the vehicle.
     ArrayList<String> validPath = findPath("SOUTHEAST", 0, 0);
 
@@ -24,8 +35,35 @@ public class AmazonWorkSample
       // Create an iterator from the ArrayList.
       Iterator nextCoordinates = validPath.iterator();
 
+      // Check if it is phase 2.
+      if(isPhaseTwo)
+      {
+        // If it is, then retrieve the list of objects.
+        ArrayList<Obstacle> obstacleList = grid.getObstacleList();
+
+        // Create an iterator for the ArrayList.
+        Iterator nextObstacle = obstacleList.iterator();
+
+        // Create a variable to store the coordinates of the obstacles.
+        String obstacleString = "Obstacles: [";
+
+        // Use a while loop to convert the coordinates into a string for
+        // printing.
+        while(nextObstacle.hasNext())
+        {
+          obstacleString += nextObstacle.next();
+          if(nextObstacle.hasNext())
+            obstacleString += ", ";
+          else
+            obstacleString += "]";
+        } // while
+
+        // Print out the coordinates of the obstacles into standard output.
+        System.out.println(obstacleString);
+      } // if
+
       // Create a string variable to store the coordinates.
-      String results = "[";
+      String results = "Vehicle movement: [";
 
       // Create a variable to check the number os steps required.
       int noOfSteps = 0;
@@ -164,9 +202,11 @@ public class AmazonWorkSample
           currentPath.add(0, currentCoordinates);
           return currentPath;
         } // if
+        // Add an obstacle to the grid at the current location to signify that
+        // it is a dead end.
+        grid.addObstacle(givenX, givenY, 1);
       } // for
     } // else
-
     // If there are no valid paths, then return an empty string.
     return new ArrayList<String>();
   } // findPath method
